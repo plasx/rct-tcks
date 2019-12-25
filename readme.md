@@ -73,3 +73,13 @@ BODY:
         email
       }
     }
+   
+### updating tracks
+
+    mutation {
+      updateTrack(trackId: 4, title: "Track5", description: "Track5 description", url: "http://track5.com" ){
+        track {
+          id
+        }
+      }
+    }
