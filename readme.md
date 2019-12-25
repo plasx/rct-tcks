@@ -51,8 +51,25 @@ Using GraphiQL via http://localhost:8000/graphql/
 
 ### Get Token
 
-mutation {
-  tokenAuth(username:"DanX", password: "1234"){
-    token
-  }
-}
+    mutation {
+      tokenAuth(username:"DanX", password: "1234"){
+        token
+      }
+    }
+
+### Get users info  with JWT token
+HEADER:
+
+    Content-Type: application/json
+    Authorization: JWT  <token>
+*Note: Token would look like this: `JWT  eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6IkRhblgiLCJleHAiOjE1NzcyOTM3MDEsIm9yaWdJYXQiOjE1NzcyOTM0MDF9.M34DhT3iG2QhEzFK8d--v6o8BibFP9LabrMJ1xAlcqw`*
+
+BODY:
+
+    {
+      me {
+        id
+        username
+        email
+      }
+    }
