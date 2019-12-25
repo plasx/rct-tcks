@@ -39,12 +39,20 @@ Using GraphiQL via http://localhost:8000/graphql/
 
 ### Get User
 
-query {
-  user(id: 1){
-    id
-    password
-    email
-    username
-    dateJoined
+    query {
+      user(id: 1){
+        id
+        password
+        email
+        username
+        dateJoined
+      }
+    }
+
+### Get Token
+
+mutation {
+  tokenAuth(username:"DanX", password: "1234"){
+    token
   }
 }
