@@ -26,7 +26,7 @@ class Query(graphene.ObjectType):
                 Q(title__icontains=search) |
                 Q(description__icontains=search) |
                 Q(url__icontains=search) |
-                Q(posted_by__username__icontains=search) |
+                Q(posted_by__username__icontains=search)
 
             }
             return Track.objects.filter(filter)
