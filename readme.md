@@ -83,3 +83,13 @@ BODY:
         }
       }
     }
+
+### like a track
+
+    mutation{
+      createLike(trackId:4){
+        track{
+          id
+        }
+      }
+    }
