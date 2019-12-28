@@ -16,7 +16,7 @@ const Error = ({ classes, error }) => {
        }
    />
   )
-}; 
+};
 
 const styles = theme => ({
   snackbar: {
