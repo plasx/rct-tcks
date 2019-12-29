@@ -1,11 +1,11 @@
 import React from "react";
-import withRoot from "./withRoot";
-
 import { Query } from 'react-apollo';
 import { gql } from 'apollo-boost';
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import withRoot from "./withRoot";
 
 const Root = () => (
-    <Query query={GET_TRACKS_QUERY}>
+    <Query query={ME_QUERY}>
         {({ data, loading, error }) => {
             if (loading) return <div>Loading</div>
             if (error) return <div>Error</div>
@@ -15,15 +15,24 @@ const Root = () => (
     </Query>
 );
 
-const GET_TRACKS_QUERY = gql`
+// const GET_TRACKS_QUERY = gql`
+//   {
+//     tracks {
+//       id
+//       title
+//       description
+//       url
+//     }
+//   }
+// `
+
+const ME_QUERY = gql`
   {
-    tracks {
+    me {
       id
-      title
-      description
-      url
+      username
+      email
     }
   }
 `
-
 export default withRoot(Root);
