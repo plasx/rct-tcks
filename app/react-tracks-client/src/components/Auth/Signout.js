@@ -27,8 +27,7 @@ const Signout = ({ classes }) => {
           </Button>
           )}
       </ApolloConsumer>
-  )
-  return <div>Signout</div>;
+  );
 };
 
 const styles = {
