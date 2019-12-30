@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import withStyles from "@material-ui/core/styles/withStyles";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
@@ -15,15 +15,26 @@ import ClearIcon from "@material-ui/icons/Clear";
 import LibraryMusicIcon from "@material-ui/icons/LibraryMusic";
 
 const CreateTrack = ({ classes }) => {
+  const [open, setOpen] = useState(false)
+  const [title, setTitle] = useState("")
+  const [description, setDescription] = useState("")
+  const [file, setFile] = useState("")
+
+  const handleAudioChange = event => {
+    const selectedFile = event.target.files[0]
+    setFile(selectedFile)
+  }
+
   return (
     <>
       {/*Create Track Button*/}
-      <Button variant="fab" className={classes.fab} color="secondary">
-        <AddIcon />
+      <Button onClick={() => setOpen(true)} variant="fab" className={classes.fab} color="secondary">
+
+        {open ? <ClearIcon /> : <AddIcon />}
       </Button>
 
       {/*Create Track Dialog*/}
-      <Dialog  open={true} className={classes.dialog}>
+      <Dialog  open={open} className={classes.dialog}>
         <form>
           <DialogTitle>Create Track</DialogTitle>
           <DialogContent>
@@ -34,34 +45,51 @@ const CreateTrack = ({ classes }) => {
               <TextField
                 label="Title"
                 placeholder="Add Title"
+                onChange={event => setTitle(event.target.value)}
                 className={classes.TextField}/>
             </FormControl>
             <FormControl fullWidth>
               <TextField
+                multiline
+                rows="2"
                 label="Description"
                 placeholder="Add Description"
+                onChange={event => setDescription(event.target.value)}
                 className={classes.TextField}/>
             </FormControl>
             <FormControl>
               <input
+                id="audio"
                 required
                 type="file"
+                accept="audio/mp3,audio/wav"
                 className={classes.input}
+                onChange={handleAudioChange}
               />
               <label htmlFor="audio">
-                <Button variant="outlined" color="inherit" component="span" className={classes.button}>
+                <Button variant="outlined"
+                        color={file ? "secondary" : "inherit"}
+                        component="span"
+                        className={classes.button}>
                   Audio File
                   <LibraryMusicIcon className={classes.icon} />
                 </Button>
+                {file && file.name}
               </label>
             </FormControl>
           </DialogContent>
           <DialogActions>
             <Button
+              onClick={() => setOpen(false)}
               className={classes.cancel}>
               Cancel
             </Button>
             <Button
+                disabled={
+                  !title.trim() ||
+                  !description.trim() ||
+                  !file
+                }
                 type="submit"
                 className={classes.save}
             >
