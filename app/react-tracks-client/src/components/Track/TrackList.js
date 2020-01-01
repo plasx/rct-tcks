@@ -9,8 +9,6 @@ import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
 import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
 import ExpansionPanelActions from "@material-ui/core/ExpansionPanelActions";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import { Link } from 'react-router-dom';
-
 import AudioPlayer from "../Shared/AudioPlayer";
 import LikeTrack from "./LikeTrack";
 import DeleteTrack from "./DeleteTrack";
@@ -43,7 +41,7 @@ const TrackList = ({ classes, tracks }) => (
                 <Typography variant="body1">{track.description}</Typography>
             </ExpansionPanelDetails>
             <ExpansionPanelActions>
-                <UpdateTrack />
+                <UpdateTrack track={track} />
                 <DeleteTrack />
             </ExpansionPanelActions>
           </ExpansionPanel>

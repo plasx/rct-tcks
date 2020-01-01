@@ -15,9 +15,10 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 import AddIcon from "@material-ui/icons/Add";
 import ClearIcon from "@material-ui/icons/Clear";
 import LibraryMusicIcon from "@material-ui/icons/LibraryMusic";
-import { GET_TRACKS_QUERY } from "../../pages/App";
 
+import { GET_TRACKS_QUERY } from "../../pages/App";
 import Error from '../Shared/Error';
+
 import { FormHelperText } from "@material-ui/core";
 
 const CreateTrack = ({ classes }) => {
