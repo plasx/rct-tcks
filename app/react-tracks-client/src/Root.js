@@ -44,12 +44,17 @@ const Root = () => (
 //   }
 // `
 
-const ME_QUERY = gql`
+export const ME_QUERY = gql`
   {
     me {
       id
       username
       email
+      likeSet {
+        track {
+          id
+        }
+      }
     }
   }
 `
