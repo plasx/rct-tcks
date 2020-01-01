@@ -15,7 +15,10 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 import AddIcon from "@material-ui/icons/Add";
 import ClearIcon from "@material-ui/icons/Clear";
 import LibraryMusicIcon from "@material-ui/icons/LibraryMusic";
+import { GET_TRACKS_QUERY } from "../../pages/App";
+
 import Error from '../Shared/Error';
+import { FormHelperText } from "@material-ui/core";
 
 const CreateTrack = ({ classes }) => {
   const [open, setOpen] = useState(false);
@@ -23,10 +26,17 @@ const CreateTrack = ({ classes }) => {
   const [description, setDescription] = useState("");
   const [file, setFile] = useState("");
   const [submitting, setSubmitting] = useState(false);
+  const [fileError, setFileError] = useState("")
 
   const handleAudioChange = event => {
     const selectedFile = event.target.files[0]
-    setFile(selectedFile)
+    const fileSizeLimit = 10000000;  // 10mb
+    if (selectedFile && selectedFile.size > fileSizeLimit){
+      setFileError(`${selectedFile.name}: File size is too large`)
+    }else{
+      setFile(selectedFile);
+      setFileError("");
+    }
   };
 
   const handleAudioUpload = async () => {
@@ -72,7 +82,11 @@ const CreateTrack = ({ classes }) => {
           console.log({ data });
           setSubmitting(false);
           setOpen(false);
+          setTitle("");
+          setDescription("");
+          setFile("");
         }}
+        refetchQueries={() => [{ query: GET_TRACKS_QUERY }]}
       >
         {(createTrack, { loading, error }) => {
           if (error) return <Error error={error} />;
@@ -105,7 +119,7 @@ const CreateTrack = ({ classes }) => {
                       className={classes.textField}
                     />
                   </FormControl>
-                  <FormControl>
+                  <FormControl error={Boolean(fileError)}>
                     <input
                       id="audio"
                       required
@@ -125,6 +139,7 @@ const CreateTrack = ({ classes }) => {
                         <LibraryMusicIcon className={classes.icon} />
                       </Button>
                       {file && file.name}
+                      <FormHelperText>{fileError}</FormHelperText>
                     </label>
                   </FormControl>
                 </DialogContent>
